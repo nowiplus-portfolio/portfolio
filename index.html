@@ -276,8 +276,8 @@ const esc = s => s.replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",
 function card(p){
   const a = document.createElement("a");
   a.className = "card";
-  a.href = BH + p.url;
-  a.target = "_blank"; a.rel = "noopener";
+  // Each featured project now has its own page in /work (the part after the number in the Behance link, lower case).
+  a.href = "work/" + p.url.split("/")[1].toLowerCase() + ".html";
   a.dataset.tags = p.tags.join("|");
   const src = p.img.startsWith("images/") ? p.img : CDN + "808/" + p.img;
   a.innerHTML =
