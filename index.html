@@ -241,13 +241,13 @@ const featured = [
   {client:"Amazon Gift Card", what:"Love in a Box campaign", tags:["E-commerce"], img:"50140869076147.Y3JvcCw4MDgsNjMyLDk2LDA.png", url:"69076147/Amazon-Gift-Card-Love-in-a-Box"},
   {client:"Amazon Fashion", what:"Instagram Reels", tags:["E-commerce","Fashion"], img:"e6b84775004787.Y3JvcCwxMjc4LDEwMDAsMTEwLDA.jpg", url:"75004787/Amazon-Fashion-Instagram-Reels"},
   {client:"Yagmour", what:"Rebrand campaign", tags:["Fashion"], img:"c3fba834214649.Y3JvcCwzNzM3LDI5MjUsMCww.jpg", url:"34214649/Yagmour-Rebrand-Campaign"},
-  {client:"Pepsi Music Festival", what:"Integrated campaign", tags:["Food & beverage"], img:"e0906415944023.Y3JvcCw1OTQsNDY1LDE0LDc.jpg", url:"15944023/Pepsi-Music-Festival-Integrated-Campaign"},
+  {client:"Pepsi Music Festival", what:"Integrated campaign", tags:["Food & beverage"], img:"images/pepsi-music-festival.jpg", url:"15944023/Pepsi-Music-Festival-Integrated-Campaign"},
   {client:"AskMe Bazaar", what:"Facebook ads campaign", tags:["E-commerce"], img:"87779540823755.Y3JvcCwxMDI2LDgwMywwLDkz.png", url:"40823755/AskMe-Bazaar-Facebook-Ads-Campaign"},
-  {client:"McDonald's", what:"AR Happy Meal campaign", tags:["Food & beverage"], img:"5f19cf24284501.Y3JvcCw1MDEsMzkyLDAsNDk.png", url:"24284501/McDonalds-AR-Happy-Meal-Campaign"},
-  {client:"Kimeika FW15", what:"Fashion campaign", tags:["Fashion"], img:"fdc05924778597.Y3JvcCw0MDQsMzE2LDAsMA.png", url:"24778597/Kimeika-FW15-Fashion-Campaign"},
-  {client:"Caviahue Ski Resort", what:"Rebranding campaign", tags:["Travel"], img:"15940473.548a47460303f.png", url:"15940473/Caviahue-Ski-Resort-Rebranding-Campaign"},
+  {client:"McDonald's", what:"AR Happy Meal campaign", tags:["Food & beverage"], img:"images/mcdonalds-ar-happy-meal.jpg", url:"24284501/McDonalds-AR-Happy-Meal-Campaign"},
+  {client:"Kimeika FW15", what:"Fashion campaign", tags:["Fashion"], img:"images/kimeika-fw15.jpg", url:"24778597/Kimeika-FW15-Fashion-Campaign"},
+  {client:"Caviahue Ski Resort", what:"Rebranding campaign", tags:["Travel"], img:"images/caviahue-ski-resort.jpg", url:"15940473/Caviahue-Ski-Resort-Rebranding-Campaign"},
   {client:"REGIA Magazine", what:"Issue #33 editorial design", tags:["Media"], img:"dcbced91714473.Y3JvcCwxMzg3LDEwODQsMCww.png", url:"91714473/REGIA-Mag-Issue-33"},
-  {client:"How to Stop Time", what:"Hand lettering", tags:["Media"], img:"5dbde029119707.Y3JvcCw0MDQsMzE2LDAsMA.jpg", url:"29119707/How-to-Stop-Time-Lettering"}
+  {client:"How to Stop Time", what:"Hand lettering", tags:["Media"], img:"images/how-to-stop-time.jpg", url:"29119707/How-to-Stop-Time-Lettering"}
 ];
 
 const archive = [
@@ -286,6 +286,10 @@ function card(p){
     '<div class="meta"><span class="client">'+esc(p.client)+'</span><span class="what">'+esc(p.what)+'</span>' +
     '<span class="tags">'+p.tags.map(esc).join(" · ")+'</span></div>';
   const img = a.querySelector("img");
+  // Behance answers a missing large size with a blank 808x808 placeholder (no error), so catch that too.
+  img.addEventListener("load", () => {
+    if (img.src.includes("/808/") && img.naturalWidth === 808 && img.naturalHeight === 808) img.src = img.src.replace("/808/","/404/");
+  });
   img.addEventListener("error", () => {
     // try the smaller Behance size, then fall back to a type tile
     if (img.src.includes("/808/")) img.src = img.src.replace("/808/","/404/");
